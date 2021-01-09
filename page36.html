@@ -92,7 +92,59 @@
                 25歳で極めた<br>鬼のパパ活マニュアル</h1>
             
             <p class="mbr-text pb-3 mbr-fonts-style display-5">今すぐ安心して始められる。</p>
-            <div class="mbr-section-btn"><a class="btn btn-md btn-primary display-4" href="https://mobirise.co">購入する</a></div>
+            <div class="mbr-section-btn">
+            	<!-- Load Stripe.js on your website. -->
+<script src="https://js.stripe.com/v3"></script>
+
+<!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
+<button
+  class="btn btn-primary"
+  id="checkout-button-price_1I7VUnEdmFVR1Ul4IZzJYira"
+  role="link"
+  type="button"
+>
+  Checkout
+</button>
+
+<div id="error-message"></div>
+
+<script>
+(function() {
+  var stripe = Stripe('pk_live_51HJTHgEdmFVR1Ul4aB02A7vuZf09kX7XTFtWSjaZltnYVKINNKoa5TEyozqV1t15H39o4hwXUNt5vNRCOI0IyUfD00paO78j7e');
+
+  var checkoutButton = document.getElementById('checkout-button-price_1I7VUnEdmFVR1Ul4IZzJYira');
+  checkoutButton.addEventListener('click', function () {
+    /*
+     * When the customer clicks on the button, redirect
+     * them to Checkout.
+     */
+    stripe.redirectToCheckout({
+      lineItems: [{price: 'price_1I7VUnEdmFVR1Ul4IZzJYira', quantity: 1}],
+      mode: 'payment',
+      /*
+       * Do not rely on the redirect to the successUrl for fulfilling
+       * purchases, customers may not always reach the success_url after
+       * a successful payment.
+       * Instead use one of the strategies described in
+       * https://stripe.com/docs/payments/checkout/fulfill-orders
+       */
+      successUrl: 'https://miraikasegi.github.io/success.html',
+      cancelUrl: 'https://miraikasegi.github.io/page36.html',
+    })
+    .then(function (result) {
+      if (result.error) {
+        /*
+         * If `redirectToCheckout` fails due to a browser or network
+         * error, display the localized error message to your customer.
+         */
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+})();
+</script>
+            </div>
         </div>
     </div>
 
